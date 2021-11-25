@@ -30,7 +30,7 @@ const options = {
     startBtn.disabled = false;
   },
 };
-const fp = flatpickr(input, options);
+const fp = flatpickr(input, options);//по догументации нужен для запуска flatpickr
 
 function onStartClick() {
   intervalId = setInterval(setTime, 1000);
@@ -43,11 +43,9 @@ function setTime() {
   const deltaTime = fp.selectedDates[0].getTime() - currentTime;
 
   updateTimer(convertMs(deltaTime));
-
-  const isFinished = Object.keys(time).every(el => time[el] === 0);
-  if (isFinished) {
+    if (deltaTime < 700) {
       finishTimer();
-      Notify.success('Timer finished');
+      Notify.success('Timer finished', { timeout: 10000 });
     }
 }
 
